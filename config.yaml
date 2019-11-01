@@ -1,0 +1,11 @@
+# **************************************
+# * Parameters for metprofile pipeline *
+# **************************************
+
+# List of files
+list_files: "/home/aschick/projects/arrieta/list_files_test.txt"
+
+# Path to sequences
+path: "/home/aschick/projects/arrieta/metqc/data/bmtagger/"
+
+# Parameters for metaphlan2
