@@ -1,12 +1,8 @@
-# metprofile
+# metaphlan
 
-Bioinformatics pipeline for profiling composition of microbial communities from metagenomic shotgun sequencing data using [MetaPhlAn2](https://www.nature.com/articles/nmeth.3802) and [StrainPhlAn](http://segatalab.cibio.unitn.it/tools/strainphlan/).
-
-Note: Am in the process of changing this pipeline from MetaPhlan to Kraken instead. 
+Snakemake pipeline for profiling composition of microbial communities from metagenomic shotgun sequencing data using [MetaPhlAn2](https://www.nature.com/articles/nmeth.3802).
 
 ## Overview
-
-This pipeline is written in snakemake and designed to automate and control the submission of processes to the Synergy server at the University of Calgary. Developed by Alana Schick for the lab of Dr. Laura Sycuro. 
 
 Input: 
 
@@ -19,27 +15,24 @@ Metaphlan2:
 * Table of microbial species and their relative abundance for each sample.
 * Heatmap of abundance results.
 
-Strainphlan:
-
-* List of clades detected in samples.
-* Phylogenetic trees for all detected species.
-
 ## Pipeline summary
 
-![Rulegraph](./metprofile_files/rulegraph.png)
+![Rulegraph](./metaphlan_files/rulegraph.png)
 
 ### Steps
 
 1) Profile microbial clades and their abundances using MetaPhlAn2. This step generates a table of abundances as well as a heatmap. [MetaPhlAn2 usage](https://bitbucket.org/biobakery/biobakery/wiki/metaphlan2).
 
-2) Identify microbial strains using SNPs in conserved, unique marker genes using StrainPhlAn. [StrainPhlAn usage](https://bitbucket.org/biobakery/biobakery/wiki/strainphlan).
+2)
+
+3) 
 
 ## Installation
 
 To use this pipeline, navigate to your project directory and clone this repository into that directory using the following command:
 
 ```
-git clone https://github.com/SycuroLab/metprofile.git metprofile
+git clone https://github.com/alanaschick/metaphlan.git metaphlan
 ```
 
 Note: you need to have **conda** and **snakemake** installed in order to run this. To install conda, see the instructions [here](https://github.com/ucvm/synergy/wiki). 
@@ -79,7 +72,7 @@ Test the pipeline by running `snakemake -np`. This command prints out the comman
 To run the pipeline on the Synergy compute cluster, enter the following command from the project directory:
 
 ```
-snakemake --cluster-config cluster.json --cluster 'bsub -n {cluster.n} -R {cluster.resources} -W {cluster.walllim} -We {cluster.time} -M {cluster.maxmem} -oo {cluster.output} -e {cluster.error}' --jobs 100 --use-conda
+snakemake --cluster-config cluster.json --cluster 'bsub -n {cluster.n} -R {cluster.resources} -W {cluster.walllim} -We {cluster.time} -M {cluster.maxmem} -oo {cluster.output} -e {cluster.error}' --jobs 500 --use-conda
 ```
 The above command submits jobs to Synergy, one for each sample and step of the QC pipeline. Note: the file `cluster.json` contains the parameters for the LSF job submission system that Synergy uses. In most cases, this file should not be modified.
 

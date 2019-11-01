@@ -26,7 +26,7 @@ rule metaphlan2:
     output:
         bt = "output/metaphlan2/{sample}_bowtieout.txt",
         pr = "output/metaphlan2/{sample}_profile.txt"
-    conda: "metprofile_files/envs/metaphlan2_env.yaml"
+    conda: "metaphlan_files/envs/metaphlan2_env.yaml"
     shell:
             "metaphlan2.py {input.r1},{input.r2} --input_type multifastq "
             "--bowtie2out {output.bt} --nproc 4 > {output.pr}"
@@ -34,13 +34,13 @@ rule metaphlan2:
 rule mergeprofiles:
     input: expand("output/metaphlan2/{sample}_profile.txt", sample=SAMPLES)
     output: "output/merged_abundance_table.txt"
-    conda: "metprofile_files/envs/metaphlan2_env.yaml"
+    conda: "metaphlan_files/envs/metaphlan2_env.yaml"
     shell: "merge_metaphlan_tables.py output/metaphlan2/*_profile.txt > {output}"
 
 rule heatmap:
     input: "output/merged_abundance_table.txt"
     output: "output/abundance_heatmap_species.png"
-    conda: "metprofile_files/envs/hclust_env.yaml"
+    conda: "metaphlan_files/envs/hclust_env.yaml"
     shell:
             """
             grep -E "(s__)|(^ID)" output/merged_abundance_table.txt | grep -v "t__" | sed 's/^.*s__//g' > output/merged_abundance_table_species.txt
