@@ -25,11 +25,12 @@ rule metaphlan2:
         r2 = config["path"]+"{sample}_bmtagged_2.fastq"
     output:
         bt = "output/metaphlan2/{sample}_bowtieout.txt",
-        pr = "output/metaphlan2/{sample}_profile.txt"
+        pr = "output/metaphlan2/{sample}_profile.txt",
+        db = "output/metaphlan2/{sample}_database"
     conda: "metaphlan_files/envs/metaphlan2_env.yaml"
     shell:
             "metaphlan2.py {input.r1},{input.r2} --input_type multifastq "
-            "--bowtie2out {output.bt} --bowtie2db output/metaphlan/database --nproc 4 > {output.pr}"
+            "--bowtie2out {output.bt} --bowtie2db {output.db} --nproc 4 > {output.pr}"
 
 rule mergeprofiles:
     input: expand("output/metaphlan2/{sample}_profile.txt", sample=SAMPLES)
