@@ -12,8 +12,9 @@ Output:
 
 Metaphlan2:
 
-* Table of microbial species and their relative abundance for each sample.
-* Heatmap of abundance results.
+* Table of microbial species and their relative abundance for each sample, `output/merged_abundance_table.txt`
+* Heatmap of abundance results, `output/abundance_heatmap_species.png`
+* Cladogram of results, `output/merged_abundance_tree.png`
 
 ## Pipeline summary
 
@@ -21,11 +22,13 @@ Metaphlan2:
 
 ### Steps
 
-1) Profile microbial clades and their abundances using MetaPhlAn2. This step generates a table of abundances as well as a heatmap. [MetaPhlAn2 usage](https://bitbucket.org/biobakery/biobakery/wiki/metaphlan2).
+1) Profile microbial clades and their abundances using MetaPhlAn2. This step generates a profile of species abundances present in each sample.
 
-2)
+2) Merge profiles. This step combines all the output files from MetaPhlAn2 into one table.
 
-3) 
+3) Heatmap.
+
+4) Cladogram.
 
 ## Installation
 
@@ -53,13 +56,7 @@ All the parameters required to run this pipeline are specified in a config file,
 
 Specify the full path to the directory that contains your data files in the config file. You also need to have a list of sample names which contains the names of the samples to run the pipeline on, one sample per line. You can run this pipeline on any number or subset of your samples. Sample names should include everything up to the R1/R2 (or 1/2) part of the file names of the raw fastq files. Specify the path and name of your list in the config file.
 
-If there are many samples, it may be convenient to generate the list of files using the following command, replacing `R1_001.fastq.gz` with the general suffix of your files:
-
-```
-ls | grep R1_001.fastq.gz | sed 's/_R1_001.fastq.gz//' > list_files.txt
-```
-
-## Description of other parameters
+## Description of parameters
 | Parameter | Description |
 | -------------- | --------------- |
 | list_files | Full path and name of your sample list. |
