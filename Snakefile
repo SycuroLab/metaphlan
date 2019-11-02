@@ -18,6 +18,7 @@ rule all:
     input:
         "output/merged_abundance_table.txt",
         "output/abundance_heatmap_species.png",
+        "output/merged_abundance_tree.png"
 
 rule metaphlan2:
     input:
