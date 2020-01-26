@@ -1,5 +1,5 @@
 # *************************************
-# * Snakefile for metprofile pipeline *
+# * Snakefile for metaphlan pipeline *
 # *************************************
 
 # **** Variables ****
@@ -29,7 +29,7 @@ rule metaphlan2:
         pr = "output/metaphlan2/{sample}_profile.txt"
     params:
         db = "output/metaphlan2/{sample}_database"
-    conda: "metaphlan_files/envs/metaphlan2_env.yaml"
+    conda: "utils/envs/metaphlan2_env.yaml"
     shell:
             "metaphlan2.py {input.r1},{input.r2} --input_type multifastq "
             "--bowtie2out {output.bt} --bowtie2db {params.db} --nproc 4 > {output.pr}; rm -rf {params.db}"
@@ -37,13 +37,13 @@ rule metaphlan2:
 rule mergeprofiles:
     input: expand("output/metaphlan2/{sample}_profile.txt", sample=SAMPLES)
     output: "output/merged_abundance_table.txt"
-    conda: "metaphlan_files/envs/metaphlan2_env.yaml"
+    conda: "utils/envs/metaphlan2_env.yaml"
     shell: "merge_metaphlan_tables.py output/metaphlan2/*_profile.txt > {output}"
 
 rule heatmap:
     input: "output/merged_abundance_table.txt"
     output: "output/abundance_heatmap_species.png"
-    conda: "metaphlan_files/envs/hclust_env.yaml"
+    conda: "utils/envs/hclust_env.yaml"
     shell:
             """
             grep -E "(s__)|(^ID)" output/merged_abundance_table.txt | grep -v "t__" | sed 's/^.*s__//g' > output/merged_abundance_table_species.txt
@@ -53,7 +53,7 @@ rule heatmap:
 rule cladogram:
     input: "output/merged_abundance_table.txt"
     output: "output/merged_abundance_tree.png"
-    conda: "metaphlan_files/envs/graphlan_env.yaml"
+    conda: "utils/envs/graphlan_env.yaml"
     shell:
             """
             export2graphlan.py --skip_rows 1,2 -i output/merged_abundance_table.txt --tree output/merged_abundance.tree.txt --annotation output/merged_abundance.annot.txt --most_abundant 100 --abundance_threshold 1 --least_biomarkers 10 --annotations 5,6 --external_annotations 7 --min_clade_size 1
