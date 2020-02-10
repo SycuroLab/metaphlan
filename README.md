@@ -28,7 +28,7 @@ Output:
 To use this pipeline, navigate to your project directory and clone this repository into that directory using the following command:
 
 ```
-git clone https://github.com/alanaschick/metaphlan.git metaphlan
+git clone https://github.com/SycuroLab/metaphlan.git metaphlan
 ```
 
 Note: you need to have **conda** and **snakemake** installed in order to run this. To install conda, see the instructions [here](https://github.com/ucvm/synergy/wiki). 
