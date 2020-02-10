@@ -10,15 +10,10 @@ Input:
 
 Output: 
 
-Metaphlan2:
-
 * Table of microbial species and their relative abundance for each sample, `output/merged_abundance_table.txt`
 * Heatmap of abundance results, `output/abundance_heatmap_species.png`
-* Cladogram of results, `output/merged_abundance_tree.png`
 
 ## Pipeline summary
-
-![Rulegraph](./utils/rulegraph.png)
 
 ### Steps
 
@@ -26,9 +21,7 @@ Metaphlan2:
 
 2) Merge profiles. This step combines all the output files from MetaPhlAn2 into one table.
 
-3) Heatmap.
-
-4) Cladogram.
+3) Heatmap. This step produces a heatmap of the 25 most abundant species. Note that this is not particularly useful for a large number of samples. 
 
 ## Installation
 
@@ -61,6 +54,8 @@ Specify the full path to the directory that contains your data files in the conf
 | -------------- | --------------- | ------------ |
 | list_files | Full path and name of your sample list. | `"/home/aschick/project/list_files.txt"` |
 | path | Location of input files. | `"/home/aschick/project/data/filtered/"` |
+| for | Suffix of forward reads. | `"_R1_filtered.fastq"` |
+| rev | Suffix of reverse reads. | `"_R2_filtered.fastq"` |
 
 ## Running the pipeline on Synergy
 

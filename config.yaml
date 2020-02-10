@@ -7,5 +7,7 @@ list_files: "/home/aschick/projects/arrieta/list_files_test.txt"
 
 # Path to sequences
 path: "/home/aschick/projects/arrieta/metqc/data/bmtagger/"
-
-# Parameters for metaphlan2
+# Suffix for forward reads
+for: "_bmtagged_1.fastq"
+# Suffix for reverse reads
+rev: "_bmtagged_2.fastq"
