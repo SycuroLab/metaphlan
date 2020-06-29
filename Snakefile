@@ -17,12 +17,20 @@ SAMPLES = SAMPLES[0].tolist()
 rule all:
     input:
         "output/merged_abundance_table.txt",
-        "output/abundance_heatmap_species.png",
+        "output/abundance_heatmap_species.png"
 
-rule metaphlan2:
+rule merge_reads:
     input:
         r1 = config["path"]+"{sample}"+config["for"],
         r2 = config["path"]+"{sample}"+config["rev"]
+    output:
+        "data/merged/{sample}.fastq"
+    shell:
+        "cat {input.r1} {input.r2} > {output.m}"
+
+rule metaphlan2:
+    input:
+        "data/merged/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
     output:
         bt = "output/metaphlan2/{sample}_bowtieout.txt",
         pr = "output/metaphlan2/{sample}_profile.txt"
@@ -30,7 +38,7 @@ rule metaphlan2:
         db = "output/metaphlan2/{sample}_database"
     conda: "utils/envs/metaphlan2_env.yaml"
     shell:
-            "metaphlan2.py {input.r1},{input.r2} --input_type multifastq "
+            "metaphlan2.py {input} --input_type fastq "
             "--bowtie2out {output.bt} --bowtie2db {params.db} --nproc 4 > {output.pr}; rm -rf {params.db}"
 
 rule mergeprofiles:

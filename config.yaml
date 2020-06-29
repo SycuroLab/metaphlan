@@ -7,7 +7,14 @@ list_files: "/home/aschick/projects/arrieta/list_files_test.txt"
 
 # Path to sequences
 path: "/home/aschick/projects/arrieta/metqc/data/bmtagger/"
-# Suffix for forward reads
+
+# Are reads paired?
+paired: FALSE
+
+# If paired-end reads, suffix for forward reads
 for: "_bmtagged_1.fastq"
-# Suffix for reverse reads
+# If paired-end reads, suffix for reverse reads
 rev: "_bmtagged_2.fastq"
+
+# If unpaired reads, suffix for reads
+suff: "_bmt_merged_ELC_trimmed_filtered.fastq"
