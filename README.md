@@ -6,7 +6,7 @@ Snakemake pipeline for profiling composition of microbial communities from metag
 
 Input: 
 
-* Paired-end fastq files from shotgun metagenome sequencing.
+* Cleaned and filtered reads from shotgun metagenome sequencing (specify whether reads are paired or unpaired in the config file
 
 Output: 
 
