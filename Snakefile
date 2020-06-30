@@ -36,10 +36,10 @@ rule metaphlan2:
         pr = "output/metaphlan2/{sample}_profile.txt"
     params:
         db = "output/metaphlan2/{sample}_database"
-    conda: "utils/envs/metaphlan2_env.yaml"
+    conda: "utils/envs/metaphlan3_env.yaml"
     shell:
-            "metaphlan2.py {input} --input_type fastq "
-            "--bowtie2out {output.bt} --bowtie2db {params.db} --nproc 4 -o {output.pr}; rm -rf {params.db}"
+            "metaphlan {input} --input_type fastq "
+            "--bowtie2out {output.bt} --nproc 4 -o {output.pr}"
 
 rule mergeprofiles:
     input: expand("output/metaphlan2/{sample}_profile.txt", sample=SAMPLES)
