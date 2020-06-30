@@ -28,17 +28,21 @@ rule merge_reads:
     shell:
         "cat {input.r1} {input.r2} > {output.m}"
 
+rule download_database:
+    output: touch("database.done")
+    conda: "utils/envs/metaphlan3_env.yaml"
+    shell: "metaphlan --install"
+
 rule metaphlan2:
     input:
-        "data/merged/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
+        db = "database.done",
+        reads = "data/merged/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
     output:
         bt = "output/metaphlan2/{sample}_bowtie2.bz2",
         pr = "output/metaphlan2/{sample}_profile.txt"
-    params:
-        db = "output/metaphlan2/{sample}_database"
     conda: "utils/envs/metaphlan3_env.yaml"
     shell:
-            "metaphlan {input} --input_type fastq "
+            "metaphlan {input.reads} --input_type fastq "
             "--bowtie2out {output.bt} --nproc 4 -o {output.pr}"
 
 rule mergeprofiles:
