@@ -33,7 +33,7 @@ rule download_database:
     conda: "utils/envs/metaphlan3_env.yaml"
     shell: "metaphlan --install"
 
-rule metaphlan2:
+rule metaphlan:
     input:
         db = "logs/database.done",
         reads = "data/merged/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
