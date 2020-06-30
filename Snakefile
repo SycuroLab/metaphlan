@@ -38,18 +38,18 @@ rule metaphlan2:
         db = "logs/database.done",
         reads = "data/merged/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
     output:
-        bt = "output/metaphlan2/{sample}_bowtie2.bz2",
-        pr = "output/metaphlan2/{sample}_profile.txt"
+        bt = "output/metaphlan/{sample}_bowtie2.bz2",
+        pr = "output/metaphlan/{sample}_profile.txt"
     conda: "utils/envs/metaphlan3_env.yaml"
     shell:
             "metaphlan {input.reads} --input_type fastq "
             "--bowtie2out {output.bt} --nproc 4 -o {output.pr}"
 
 rule mergeprofiles:
-    input: expand("output/metaphlan2/{sample}_profile.txt", sample=SAMPLES)
+    input: expand("output/metaphlan/{sample}_profile.txt", sample=SAMPLES)
     output: "output/merged_abundance_table.txt"
-    conda: "utils/envs/metaphlan2_env.yaml"
-    shell: "merge_metaphlan_tables.py output/metaphlan2/*_profile.txt > {output}"
+    conda: "utils/envs/metaphlan3_env.yaml"
+    shell: "merge_metaphlan_tables.py output/metaphlan/*_profile.txt > {output}"
 
 rule heatmap:
     input: "output/merged_abundance_table.txt"
