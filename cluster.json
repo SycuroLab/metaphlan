@@ -10,6 +10,18 @@
     "error" : "logs/{rule}.{wildcards}.err"
   },
 
+  "mergeprofiles" :
+  {
+    "resources" : "\"rusage[mem=100] span[hosts=1]\"",
+    "time" : "00:01"
+  },
+
+  "heatmap" :
+  {
+    "resources" : "\"rusage[mem=100] span[hosts=1]\"",
+    "time" : "00:02"
+  },
+
   "download_database" :
   {
     "time" : "00:30"

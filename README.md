@@ -10,16 +10,17 @@ Input:
 
 Output: 
 
-* Table of microbial species and their relative abundance for each sample, `output/merged_abundance_table.txt`
+* Table of microbial taxa and their relative abundance for each sample, `output/merged_abundance_table.txt`
+* Abundance table at species level, `merged_abundance_table_species.txt`
 * Heatmap of abundance results, `output/abundance_heatmap_species.png`
 
 ## Pipeline summary
 
 ### Steps
 
-1) Profile microbial clades and their abundances using MetaPhlAn2. This step generates a profile of species abundances present in each sample.
+1) Profile microbial clades and their abundances using MetaPhlAn3. This step generates a profile of species abundances present in each sample.
 
-2) Merge profiles. This step combines all the output files from MetaPhlAn2 into one table.
+2) Merge profiles. This step combines all the output files from MetaPhlAn3 into one table.
 
 3) Heatmap. This step produces a heatmap of the 25 most abundant species. Note that this is not particularly useful for a large number of samples. 
 
@@ -54,8 +55,10 @@ Specify the full path to the directory that contains your data files in the conf
 | -------------- | --------------- | ------------ |
 | list_files | Full path and name of your sample list. | `"/home/aschick/project/list_files.txt"` |
 | path | Location of input files. | `"/home/aschick/project/data/filtered/"` |
-| for | Suffix of forward reads. | `"_R1_filtered.fastq"` |
-| rev | Suffix of reverse reads. | `"_R2_filtered.fastq"` |
+| paired | Are reads paired? Set to `TRUE` if the reads are paired. | `FALSE` |
+| for | If paired, suffix of forward reads. | `"_R1_filtered.fastq"` |
+| rev | If paired, suffix of reverse reads. | `"_R2_filtered.fastq"` |
+| suff | If unpaired, suffix of reads. | `"_merged_trimmed_filtered.fastq"` |
 
 ## Running the pipeline on Synergy
 
