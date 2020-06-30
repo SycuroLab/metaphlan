@@ -3,10 +3,10 @@
 # **************************************
 
 # List of files
-list_files: "/home/aschick/projects/arrieta/list_files_test.txt"
+list_files: "/home/aschick/projects/40_vag_metagenomes/list_files_test.txt"
 
 # Path to sequences
-path: "/home/aschick/projects/arrieta/metqc/data/bmtagger/"
+path: "/home/aschick/projects/40_vag_metagenomes/data/"
 
 # Are reads paired?
 paired: FALSE

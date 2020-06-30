@@ -32,14 +32,14 @@ rule metaphlan2:
     input:
         "data/merged/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
     output:
-        bt = "output/metaphlan2/{sample}_bowtieout.txt",
+        bt = "output/metaphlan2/{sample}_bowtie2.bz2",
         pr = "output/metaphlan2/{sample}_profile.txt"
     params:
         db = "output/metaphlan2/{sample}_database"
     conda: "utils/envs/metaphlan2_env.yaml"
     shell:
             "metaphlan2.py {input} --input_type fastq "
-            "--bowtie2out {output.bt} --bowtie2db {params.db} --nproc 4 > {output.pr}; rm -rf {params.db}"
+            "--bowtie2out {output.bt} --bowtie2db {params.db} --nproc 4 -o {output.pr}; rm -rf {params.db}"
 
 rule mergeprofiles:
     input: expand("output/metaphlan2/{sample}_profile.txt", sample=SAMPLES)
