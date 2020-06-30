@@ -29,13 +29,13 @@ rule merge_reads:
         "cat {input.r1} {input.r2} > {output.m}"
 
 rule download_database:
-    output: touch("database.done")
+    output: touch("logs/database.done")
     conda: "utils/envs/metaphlan3_env.yaml"
     shell: "metaphlan --install"
 
 rule metaphlan2:
     input:
-        db = "database.done",
+        db = "logs/database.done",
         reads = "data/merged/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
     output:
         bt = "output/metaphlan2/{sample}_bowtie2.bz2",
