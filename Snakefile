@@ -26,7 +26,7 @@ rule merge_reads:
     output:
         "data/merged/{sample}.fastq"
     shell:
-        "cat {input.r1} {input.r2} > {output.m}"
+        "cat {input.r1} {input.r2} > {output}"
 
 rule download_database:
     output: touch("logs/database.done")
