@@ -10,9 +10,8 @@ Input:
 
 Output: 
 
-* Table of microbial taxa and their relative abundance for each sample, `output/merged_abundance_table.txt`
+* Table of microbial taxa and their **raw** abundance for each sample, `output/merged_abundance_table.txt`
 * Abundance table at species level, `merged_abundance_table_species.txt`
-* Heatmap of abundance results, `output/abundance_heatmap_species.png`
 
 ## Pipeline summary
 
@@ -22,7 +21,7 @@ Output:
 
 2) Merge profiles. This step combines all the output files from MetaPhlAn3 into one table.
 
-3) Heatmap. This step produces a heatmap of the 25 most abundant species. Note that this is not particularly useful for a large number of samples. 
+3) Individual sample profile has both raw and relative abundance values so if needed relative abundances can be merged also.
 
 ## Installation
 
@@ -75,6 +74,8 @@ The above command submits jobs to Synergy, one for each sample and step of the Q
 
 Snakemake will create a directory for the results of the pipeline as well as a directory for log files. Log files of each step of the pipeline will be written to the `logs` directory.
 
+## Caveats
 
+1) Sometimes the pipeline fails with the every first metaphlan command exiting. A possible problem can be with the execute permissions not set in the conda envirnoment bin forlder for metaphlan. You can check this by ``` ls -l .snakemake/conda/<ENV_name>/bin/metaphlan ```. Please use ```chmod``` to change the permissions for all executables in the bin folder.
 
 
