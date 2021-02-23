@@ -76,6 +76,8 @@ Snakemake will create a directory for the results of the pipeline as well as a d
 
 ## Caveats
 
-1) Sometimes the pipeline fails with the every first metaphlan command exiting. A possible problem can be with the execute permissions not set in the conda envirnoment bin forlder for metaphlan. You can check this by ``` ls -l .snakemake/conda/<ENV_name>/bin/metaphlan ```. Please use ```chmod``` to change the permissions for all executables in the bin folder.
+1) Sometimes the pipeline fails with the every first metaphlan command exiting. A possible problem can be with the execute permissions not set in the conda envirnoment bin forlder for metaphlan. You can check this by 
+2) ``` ls -l .snakemake/conda/<ENV_name>/bin/metaphlan ```. 
+3) Once in the bin folder, you can change the permissions by ```chmod u+x *``` to change the permissions for all executables in the bin folder.
 
 
