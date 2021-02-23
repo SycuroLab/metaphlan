@@ -2,14 +2,19 @@
 # * Parameters for metprofile pipeline *
 # **************************************
 
-# List of files
-list_files: "/home/aschick/projects/40_vag_metagenomes/list_files_test.txt"
+list_files: "/export/home/hramay/projects/Arrieta/PC1000/antibiotic_babies/analysis/metqc/list_files.txt"
 
 # Path to sequences
-path: "/home/aschick/projects/40_vag_metagenomes/data/"
+path: "/export/home/hramay/projects/Arrieta/PC1000/antibiotic_babies/analysis/metqc/output/bmtagger/"
+
+
+output_dir: "test"
+
+# Nthreads metaphlan can use
+threads: 4
 
 # Are reads paired?
-paired: FALSE
+paired: TRUE
 
 # If paired-end reads, suffix for forward reads
 for: "_bmtagged_1.fastq"

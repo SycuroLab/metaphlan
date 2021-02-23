@@ -16,47 +16,43 @@ SAMPLES = SAMPLES[0].tolist()
 
 rule all:
     input:
-        "output/merged_abundance_table.txt",
-        "output/abundance_heatmap_species.png"
+        config["output_dir"] + "/merged_abundance_table_species.txt"
 
 rule merge_reads:
     input:
         r1 = config["path"]+"{sample}"+config["for"],
         r2 = config["path"]+"{sample}"+config["rev"]
     output:
-        "data/merged/{sample}.fastq"
+        config["output_dir"] + "/merged_data/{sample}.fastq"
     shell:
-        "cat {input.r1} {input.r2} > {output.m}"
+        "cat {input.r1} {input.r2} > {output}"
 
-rule download_database:
-    output: touch("logs/database.done")
-    conda: "utils/envs/metaphlan3_env.yaml"
-    shell: "metaphlan --install"
+#rule download_database:
+#    output: touch(config["output_dir"] + "/logs/database.done")
+#    conda: "utils/envs/metaphlan3_env.yaml"
+#    shell: "metaphlan --install"
 
 rule metaphlan:
     input:
-        db = "logs/database.done",
-        reads = "data/merged/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
+#        db = config["output_dir"] +"/logs/database.done",
+        reads = config["output_dir"] + "/merged_data/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
     output:
-        bt = "output/metaphlan/{sample}_bowtie2.bz2",
-        pr = "output/metaphlan/{sample}_profile.txt"
+        bt = config["output_dir"] + "/metaphlan/{sample}_bowtie2.bz2",
+        pr = config["output_dir"] + "/metaphlan/{sample}_profile.txt"
+    params: threads=config["threads"]
     conda: "utils/envs/metaphlan3_env.yaml"
     shell:
-            "metaphlan {input.reads} --input_type fastq "
-            "--bowtie2out {output.bt} --nproc 4 -o {output.pr}"
+            "metaphlan -t rel_ab_w_read_stats --unknown_estimation {input.reads} --input_type fastq "
+            "--bowtie2out {output.bt} --nproc {threads} -o {output.pr}"
 
 rule mergeprofiles:
-    input: expand("output/metaphlan/{sample}_profile.txt", sample=SAMPLES)
-    output: "output/merged_abundance_table.txt"
+    input: expand(config["output_dir"] + "/metaphlan/{sample}_profile.txt", sample=SAMPLES)
+    output: o1=config["output_dir"] + "/merged_abundance_table.txt",
+            o2=config["output_dir"] + "/merged_abundance_table_species.txt"
+    params: profiles=config["output_dir"]+"/metaphlan/*_profile.txt"
     conda: "utils/envs/metaphlan3_env.yaml"
-    shell: "merge_metaphlan_tables.py output/metaphlan/*_profile.txt > {output}"
+    shell: """
+           python utils/merge_metaphlan_tables.py {params.profiles} > {o1}
+           grep -E "(s__)|(^ID)|(clade_name)|(UNKNOWN)" {o1} | grep -v "t__" | sed 's/^.*s__//g' > {o2}
+           """
 
-rule heatmap:
-    input: "output/merged_abundance_table.txt"
-    output: "output/abundance_heatmap_species.png"
-    conda: "utils/envs/hclust_env.yaml"
-    shell:
-            """
-            grep -E "(s__)|(^ID)" output/merged_abundance_table.txt | grep -v "t__" | sed 's/^.*s__//g' > output/merged_abundance_table_species.txt
-            hclust2.py -i output/merged_abundance_table_species.txt -o output/abundance_heatmap_species.png --ftop 25 --f_dist_f braycurtis --s_dist_f braycurtis --cell_aspect_ratio 0.5 -l --flabel_size 6 --slabel_size 6 --max_flabel_len 100 --max_slabel_len 100 --minv 0.1 --dpi 300
-            """
