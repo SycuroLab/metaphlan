@@ -95,10 +95,10 @@ The above command submits jobs to Synergy, one for each sample and step of the m
 
 Snakemake will create a directory for the results of the pipeline as well as a directory for log files. Log files of each step of the pipeline will be written to the `logs` directory.
 
-## Caveats
+## Known Issues
 
 1) Sometimes the pipeline fails with the every first metaphlan command exiting. A possible problem can be with the execute permissions not set in the conda envirnoment bin forlder for metaphlan. You can check this by 
-2) ``` ls -l .snakemake/conda/<ENV_name>/bin/metaphlan ```. 
-3) Once in the bin folder, you can change the permissions by ```chmod u+x *``` to change the permissions for all executables in the bin folder.
-
+ ``` ls -l .snakemake/conda/<ENV_name>/bin/metaphlan ```. 
+ Once in the bin folder, you can change the permissions by ```chmod u+x *``` to change the permissions for all executables in the bin folder.
+2) The location of the downloaded chocophlan database that metaphlan needs is ```.snakemake/conda/<ENV_name>/lib/python3.7/site-packages/metaphlan/metaphlan_databases/```. It has happened in the past that some files are missing so this would be the place to check
 
