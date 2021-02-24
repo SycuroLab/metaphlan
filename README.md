@@ -89,7 +89,7 @@ To run the pipeline on the Synergy compute cluster, enter the following command 
 ```
 snakemake --cluster-config cluster.json --cluster 'bsub -n {cluster.n} -R {cluster.resources} -W {cluster.walllim} -We {cluster.time} -M {cluster.maxmem} -oo {cluster.output} -e {cluster.error}' --jobs 500 --use-conda
 ```
-The above command submits jobs to Synergy, one for each sample and step of the QC pipeline. Note: the file `cluster.json` contains the parameters for the LSF job submission system that Synergy uses. In most cases, this file should not be modified.
+The above command submits jobs to Synergy, one for each sample and step of the metaphlan pipeline. Note: the file `cluster.json` in the `cluster_files/lsf_files/` folder contains the parameters for the LSF job submission system that Synergy uses. In most cases, this file should not be modified.
 
 ## Results and log files
 
