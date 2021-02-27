@@ -102,9 +102,11 @@ Snakemake will create a directory for the results of the pipeline as well as a d
 
 The Metaphlan Database was downloaded and installed previously for ease of use.
 
-Location: arc.ucalgary.ca
+Location: 
+`arc.ucalgary.ca`
 
-Directory Path: /bulk/IMCshared_bulk/shared/dbs/metaphlan3
+Directory Path: 
+`/bulk/IMCshared_bulk/shared/dbs/metaphlan3`
 
 If there is a newer version of the database that you want to use for your project you can download the newer version;
 
@@ -123,7 +125,7 @@ metaphlan --install
 
 After installation the database should be located in the following directory.
 ```
-/home/<username>/miniconda3/envs/metaphlan3/lib/python3.7/site-packages/metaphlan/metaphlan_databases.
+/home/<username>/miniconda3/envs/metaphlan3/lib/python3.7/site-packages/metaphlan/metaphlan_databases
 ```
 
 Place this path in the `metaphlan_database` parameter in the `config.yaml` file.
