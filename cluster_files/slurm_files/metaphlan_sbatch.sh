@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --time=7-00:00:00
+#SBATCH --time=2-00:00:00
 #SBATCH --mem=5G
 #SBATCH --error=metaphlan_sbatch_run.%J.err
 #SBATCH --output=metaphlan_sbatch_run.%J.out

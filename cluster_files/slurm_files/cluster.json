@@ -6,7 +6,7 @@
     "nodes": 1,
     "ntasks": 1,
     "cpus-per-task": 8,
-    "time" : "00:02:00",
+    "time" : "00:20:00",
     "mem" : 38G,
     "output" : "logs/{rule}.{wildcards}.out",
     "error" : "logs/{rule}.{wildcards}.err"
@@ -14,16 +14,17 @@
 
   "mergeprofiles" :
   {
-    "time" : "00:00:01"
+    "time" : "00:02:00"
+  },
+  
+  "metaphlan" :
+  {
+    "time" : "00:20:00"
   },
 
   "heatmap" :
   {
-    "time" : "00:00:02"
+    "time" : "00:20:00"
   },
 
-  "download_database" :
-  {
-    "time" : "00:00:30"
-  }
 }
