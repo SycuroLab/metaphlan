@@ -54,6 +54,9 @@ Specify the full path to the directory that contains your data files in the conf
 | -------------- | --------------- | ------------ |
 | list_files | Full path and name of your sample list. | `"/home/aschick/project/list_files.txt"` |
 | path | Location of input files. | `"/home/aschick/project/data/filtered/"` |
+| output_dir | Location of output files. | `"/home/aschick/project/metaphlan"` |
+| metaphlan_database | Location of the Metaphlan bowtie2 database. | `"/bulk/IMCshared_bulk/shared/dbs/metaphlan3"` |
+| threads | Number of threads for Metaphlan | `8` |
 | paired | Are reads paired? Set to `TRUE` if the reads are paired. | `FALSE` |
 | for | If paired, suffix of forward reads. | `"_R1_filtered.fastq"` |
 | rev | If paired, suffix of reverse reads. | `"_R2_filtered.fastq"` |
@@ -94,6 +97,36 @@ The above command submits jobs to Synergy, one for each sample and step of the m
 ## Results and log files
 
 Snakemake will create a directory for the results of the pipeline as well as a directory for log files. Log files of each step of the pipeline will be written to the `logs` directory.
+
+## Metphlan Database
+
+The Metaphlan Database was downloaded and installed previously for ease of use.
+
+Location: arc.ucalgary.ca
+Directory Path: /bulk/IMCshared_bulk/shared/dbs/metaphlan3
+
+If there is a newer version of the database that you want to use for your project you can download the newer version;
+
+1. Install the metaphlan 3 conda environment. Requires conda please see conda installation instructions above.
+```
+conda env create --file metaphlan3_env.yaml 
+```
+2. Activate the metaphlan3 conda environment.
+```
+conda activate metaphlan3
+```
+3. Download and install metaphlan database.
+```
+metaphlan --install
+```
+
+After installation the database should be located in the following directory.
+```
+/home/<username>/miniconda3/envs/metaphlan3/lib/python3.7/site-packages/metaphlan/metaphlan_databases.
+```
+
+Place this path in the `metaphlan_database` parameter in the `config.yaml` file.
+
 
 ## Known Issues
 
