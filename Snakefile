@@ -34,16 +34,18 @@ rule merge_reads:
 
 rule metaphlan:
     input:
-#        db = config["output_dir"] +"/logs/database.done",
         reads = config["output_dir"] + "/merged_data/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
     output:
         bt = config["output_dir"] + "/metaphlan/{sample}_bowtie2.bz2",
         pr = config["output_dir"] + "/metaphlan/{sample}_profile.txt"
-    params: threads=config["threads"]
+    params: 
+        metaphlan_database = config["metaphlan_database"],
+	threads = config["threads"]
+	
     conda: "utils/envs/metaphlan3_env.yaml"
     shell:
             "metaphlan -t rel_ab_w_read_stats --unknown_estimation {input.reads} --input_type fastq "
-            "--bowtie2out {output.bt} --nproc {threads} -o {output.pr}"
+            "--bowtie2db {params.metaphlan_database} --bowtie2out {output.bt} --nproc {params.threads} -o {output.pr}"
 
 rule mergeprofiles:
     input: expand(config["output_dir"] + "/metaphlan/{sample}_profile.txt", sample=SAMPLES)
@@ -52,7 +54,7 @@ rule mergeprofiles:
     params: profiles=config["output_dir"]+"/metaphlan/*_profile.txt"
     conda: "utils/envs/metaphlan3_env.yaml"
     shell: """
-           python utils/merge_metaphlan_tables.py {params.profiles} > {o1}
-           grep -E "(s__)|(^ID)|(clade_name)|(UNKNOWN)" {o1} | grep -v "t__" | sed 's/^.*s__//g' > {o2}
+           python utils/merge_metaphlan_tables.py {params.profiles} > {output.o1}
+           grep -E "(s__)|(^ID)|(clade_name)|(UNKNOWN)" {output.o1} | grep -v "t__" | sed 's/^.*s__//g' > {output.o2}
            """
 
