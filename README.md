@@ -103,6 +103,7 @@ Snakemake will create a directory for the results of the pipeline as well as a d
 The Metaphlan Database was downloaded and installed previously for ease of use.
 
 Location: arc.ucalgary.ca
+
 Directory Path: /bulk/IMCshared_bulk/shared/dbs/metaphlan3
 
 If there is a newer version of the database that you want to use for your project you can download the newer version;
