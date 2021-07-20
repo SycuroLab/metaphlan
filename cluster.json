@@ -2,12 +2,12 @@
   "__default__" :
   {
     "name": "metaphlan.{rule}.{wildcards}",
-    "partition": "cpu2019",
+    "partition": "synergy",
     "nodes": 1,
     "ntasks": 1,
-    "cpus-per-task": 8,
+    "cpus-per-task": 7,
     "time" : "02:00:00",
-    "mem" : 38G,
+    "mem" : 60G,
     "output" : "logs/{rule}.{wildcards}.out",
     "error" : "logs/{rule}.{wildcards}.err"
   },

@@ -9,13 +9,13 @@ list_files: "/bulk/sycuro_bulk/lsycuro_labshare/kevin/417_419_Project_2020_2021/
 # Path to sequences
 path: "/bulk/sycuro_bulk/lsycuro_labshare/kevin/417_419_Project_2020_2021/metemirge_metaphlan2_aim1/KG_18/metqc/output/bmtagger/"
 
-output_dir: "/work/sycuro_lab/kevin/metaphlan"
+output_dir: "/work/sycuro_lab/kevin/metaphlan_2021-07-19"
 
 # Metaphlan bowtie2 database.
 metaphlan_database: "/bulk/IMCshared_bulk/shared/dbs/metaphlan3"
 
 # Nthreads metaphlan can use
-threads: 8
+threads: 7
 
 # Are reads paired?
 paired: TRUE
