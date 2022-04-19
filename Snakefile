@@ -16,17 +16,17 @@ SAMPLES = SAMPLES[0].tolist()
 
 rule all:
     input:
-	config["output_dir"] + "/merged_abundance_table_species.txt",
+        config["output_dir"] + "/merged_abundance_table_species.txt",
         config["output_dir"] + "/merged_abundance_table_species_relab.txt"
 
 rule merge_reads:
     input:
-	r11 = config["path"]+"{sample}"+config["for"],
+        r11 = config["path"]+"{sample}"+config["for"],
         r12 = config["path"]+"{sample}"+config["rev"],
     output:
-	config["output_dir"] + "/merged_data/{sample}.fastq"
+        config["output_dir"] + "/merged_data/{sample}.fastq"
     shell:
-	"cat {input.r11} {input.r12} > {output}"
+        "cat {input.r11} {input.r12} > {output}"
 
 	
 #rule download_database:
@@ -38,11 +38,11 @@ rule metaphlan:
     input:
         reads = config["output_dir"] + "/merged_data/{sample}.fastq" if config["paired"] else config["path"]+"{sample}"+config["suff"]
     output:
-	bt = config["output_dir"] + "/metaphlan/{sample}_bowtie2.bz2",
+        bt = config["output_dir"] + "/metaphlan/{sample}_bowtie2.bz2",
         sam = config["output_dir"] + "/metaphlan/{sample}_sam.bz2",
         pr = config["output_dir"] + "/metaphlan/{sample}_profile.txt"
     params:
-	metaphlan_database = config["metaphlan_database"],
+        metaphlan_database = config["metaphlan_database"],
         threads = config["threads"]
 
     conda: "utils/envs/metaphlan3_env.yaml"
