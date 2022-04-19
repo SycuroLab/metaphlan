@@ -69,3 +69,4 @@ rule mergeprofiles_relab:
     shell: """
            python utils/merge_metaphlan_tables_relab.py {params.profiles} > {output.o1}
            grep -E "(s__)|(^ID)|(clade_name)|(UNKNOWN)" {output.o1} | grep -v "t__" | sed 's/^.*s__//g' > {output.o2}
+           """
