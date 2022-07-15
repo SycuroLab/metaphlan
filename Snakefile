@@ -12,12 +12,14 @@ import pandas as pd
 SAMPLES = pd.read_csv(config["list_files"], header = None)
 SAMPLES = SAMPLES[0].tolist()
 
+os.environ["PATH"]+=os.pathsep+"/bulk/IMCshared_bulk/shared/shared_software/MetaPhlAn/metaphlan3/bin/"
+
 # **** Rules ****
 
 rule all:
     input:
         config["output_dir"] + "/merged_abundance_table_species.txt",
-        config["output_dir"] + "/merged_abundance_table_species_relab.txt"
+#        config["output_dir"] + "/merged_abundance_table_species_relab.txt"
 
 rule merge_reads:
     input:
@@ -55,18 +57,19 @@ rule mergeprofiles:
     output: o1=config["output_dir"] + "/merged_abundance_table.txt",
             o2=config["output_dir"] + "/merged_abundance_table_species.txt"
     params: profiles=config["output_dir"]+"/metaphlan/*_profile.txt"
-    conda: "utils/envs/metaphlan3_env.yaml"
+    conda: "utils/envs/merge_metaphlan_tables_env.yaml"
     shell: """
            python utils/merge_metaphlan_tables.py {params.profiles} > {output.o1}
            grep -E "(s__)|(^ID)|(clade_name)|(UNKNOWN)" {output.o1} | grep -v "t__" | sed 's/^.*s__//g' > {output.o2}
            """
-rule mergeprofiles_relab:
-    input: expand(config["output_dir"] + "/metaphlan/{sample}_profile.txt", sample=SAMPLES)
-    output: o1=config["output_dir"] + "/merged_abundance_table_relab.txt",
-            o2=config["output_dir"] + "/merged_abundance_table_species_relab.txt"
-    params: profiles=config["output_dir"]+"/metaphlan/*_profile.txt"
-    conda: "utils/envs/metaphlan3_env.yaml"
-    shell: """
-           python utils/merge_metaphlan_tables_relab.py {params.profiles} > {output.o1}
-           grep -E "(s__)|(^ID)|(clade_name)|(UNKNOWN)" {output.o1} | grep -v "t__" | sed 's/^.*s__//g' > {output.o2}
-           """
+#rule mergeprofiles_relab:
+#    input: expand(config["output_dir"] + "/metaphlan/{sample}_profile.txt", sample=SAMPLES)
+#    output: o1=config["output_dir"] + "/merged_abundance_table_relab.txt",
+#            o2=config["output_dir"] + "/merged_abundance_table_species_relab.txt"
+#    params: profiles=config["output_dir"]+"/metaphlan/*_profile.txt"
+#    conda: "utils/envs/metaphlan3_env.yaml"
+#    shell: """
+#           python utils/merge_metaphlan_tables_relab.py {params.profiles} > {output.o1}
+#           grep -E "(s__)|(^ID)|(clade_name)|(UNKNOWN)" {output.o1} | grep -v "t__" | sed 's/^.*s__//g' > {output.o2}
+#           """
+#

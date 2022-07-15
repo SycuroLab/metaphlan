@@ -2,7 +2,7 @@
   "__default__" :
   {
     "name": "metaphlan.{rule}.{wildcards}",
-    "partition": "synergy",
+    "partition": "cpu2019,cpu2021,cpu2022,synergy",
     "nodes": 1,
     "ntasks": 1,
     "cpus-per-task": 7,
