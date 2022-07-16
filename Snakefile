@@ -12,7 +12,7 @@ import pandas as pd
 SAMPLES = pd.read_csv(config["list_files"], header = None)
 SAMPLES = SAMPLES[0].tolist()
 
-os.environ["PATH"]+=os.pathsep+"/bulk/IMCshared_bulk/shared/shared_software/MetaPhlAn/metaphlan3/bin/"
+#os.environ["PATH"]+=os.pathsep+"/bulk/IMCshared_bulk/shared/shared_software/MetaPhlAn/metaphlan3/bin/"
 
 # **** Rules ****
 
