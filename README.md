@@ -36,7 +36,10 @@ Note: you need to have **conda** and **snakemake** installed in order to run thi
 To install snakemake using conda, run the following line:
 
 ```
-conda install -c bioconda -c conda-forge snakemake
+conda create --name snakemake
+conda activate snakemake
+conda install -c conda-forge mamba
+conda install -c bioconda snakemake
 ```
 
 See the snakemake installation [webpage](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) for further details.
@@ -72,7 +75,7 @@ To run the pipeline on the ARC compute cluster, enter the following command from
 sbatch < metaphlan_sbatch.sh
 ```
 
-The above command submits jobs to ARC, one for each sample and step of the metqc pipeline.
+The above command submits jobs to ARC, one for each sample and step of the metaphlan snakemake pipeline.
 
 Note: the file `cluster.json` contains the parameters for the SLURM job submission system that ARC uses. In most cases, this file should not be modified. Use the `cluster.json` file in the `cluster_files/slurm_files/` folder. 
 
@@ -81,18 +84,6 @@ https://rcs.ucalgary.ca/index.php/ARC_Cluster_Guide
 
 The General Guidelines and Policies can be found here:
 https://rcs.ucalgary.ca/index.php/General_Cluster_Guidelines_and_Policies
-
-
-## Running the pipeline on Synergy (LSF cluster)
-
-Test the pipeline by running `snakemake -np`. This command prints out the commands to be run without actually running them. 
-
-To run the pipeline on the Synergy compute cluster, enter the following command from the project directory:
-
-```
-snakemake --cluster-config cluster.json --cluster 'bsub -n {cluster.n} -R {cluster.resources} -W {cluster.walllim} -We {cluster.time} -M {cluster.maxmem} -oo {cluster.output} -e {cluster.error}' --jobs 500 --use-conda
-```
-The above command submits jobs to Synergy, one for each sample and step of the metaphlan pipeline. Note: the file `cluster.json` in the `cluster_files/lsf_files/` folder contains the parameters for the LSF job submission system that Synergy uses. In most cases, this file should not be modified.
 
 ## Results and log files
 
