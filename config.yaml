@@ -12,7 +12,7 @@ path: "/bulk/sycuro_bulk/lsycuro_labshare/kevin/417_419_Project_2020_2021/metemi
 output_dir: "/work/sycuro_lab/kevin/metaphlan_2021-07-19"
 
 # Metaphlan bowtie2 database.
-metaphlan_database: "/bulk/IMCshared_bulk/shared/dbs/metaphlan3"
+metaphlan_database: "/bulk/IMCshared_bulk/shared/dbs/metaphlan3.1"
 
 # Nthreads metaphlan can use
 threads: 7
